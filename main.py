@@ -36,17 +36,17 @@ def get_file_name() -> str:
 def get_offset() -> int:
     goOn = True
     while goOn:
-        offSet = input("Offset (as hexadecimal): ")
-        if offSet:  # and offSet.isnumeric():
+        offSet = input("Offset (if hexadecimal, enter with '0x' prefix): ")
+        if offSet: 
             try:
-                offSet = int(offSet, 0)  # Expects hex
+                offSet = int(offSet, 0)  # 0 parameter tells it to automatically detect decimal vs hexadecimal
                 return offSet
             except:
-                print("Invalid offset (must be an integer).")
+                print("Invalid offset (must be an integer in decimal or hexadecimal format).")
                 resp = input("Try again? (Y or N)")
                 goOn = resp.upper().startswith("Y")
         else:
-            print("Invalid or missing offset (must be an integer in hex).")
+            print("Invalid or missing offset (must be an integer in decimal or hexadecimal format).")
             resp = input("Try again? (Y or N)")
             goOn = resp.upper().startswith("Y")
         if not goOn:
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         io_bytes = io.BytesIO(image_content)
         opened_image = Image.open(io_bytes)
         opened_image.show()
-        # opened_image.save("image.bmp")  # Uncomment this to save the file
+        # Note: Use opened_image.save(SAVE_FILE_NAME) to automatically save the file.
 
         keepGoing = input("Get another image from the same file? (Y or N) ").upper().startswith("Y")
         if not keepGoing:
